@@ -73,19 +73,33 @@ const deleteThisBook = (button) => {
 };
 
 const addBook = () => {
+  let errorP;
   const titleBook = document.getElementById('titleBook').value;
   const authorBook = document.getElementById('authorBook').value;
+  const mainTitle = document.querySelector('.main-title');
+
   if (titleBook === '' || authorBook === '') {
     return;
   }
+
   if (library.length > 0) {
     library.forEach((book) => {
       if (titleBook === book.title) {
-        throw new Error('Book already has been already added.');
+        errorP = document.createElement('p');
+        errorP.innerHTML = 'Book has already been added.';
+        errorP.classList.add('error-p');
+
+        if (!document.querySelector('.error-p')) {
+          mainTitle.insertAdjacentElement('afterend', errorP);
+        }
+
+        throw new Error('Book has been already added.');
       }
     });
   }
   Book(titleBook, authorBook);
+  errorP = document.querySelector('.error-p');
+  errorP.remove();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
