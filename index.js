@@ -14,7 +14,7 @@ class AwesomeBook {
     this.library = data;
   }
   
-  displayBook(library) {
+  displayBooks(library) {
     const booklist = document.querySelector('.book-list');
   
     if (booklist.hasChildNodes()) {
@@ -47,17 +47,17 @@ class AwesomeBook {
   
     if (allDeleteButtons.length > 0) {
       allDeleteButtons.forEach((button) => {
-        button.addEventListener('click', deleteThisBook.bind(this));
+        button.addEventListener('click', this.deleteThisBook.bind(this));
       });
     }
   };
   
-  const Book = (title, author) => {
+  Book(title, author) {
     this.library.push({ title, author });
   
     this.setLocalStorage();
   
-    displayBook(this.library);
+    this.displayBooks(this.library);
   };
   
   removeBook(title) {
@@ -69,8 +69,8 @@ class AwesomeBook {
   
   deleteThisBook(button) {
     const titleToDelete = button.target.parentNode.firstElementChild.innerHTML;
-    removeBook(titleToDelete);
-    displayBook(this.library);
+    this.removeBook(titleToDelete);
+    this.displayBooks(this.library);
   };
   
   addBook() {
@@ -98,26 +98,29 @@ class AwesomeBook {
         }
       });
     }
-    Book(titleBook, authorBook);
+    this.Book(titleBook, authorBook);
     errorP = document.querySelector('.error-p');
-    errorP.remove();
+    if(errorP !== null) {
+      errorP.remove();
+    }
   };
   
-  document.addEventListener('DOMContentLoaded', () => {
-    const addBookBtn = document.querySelector('.addBook');
-  
-    addBookBtn.addEventListener('click', () => {
-      addBook();
+  main() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const addBookBtn = document.querySelector('.addBook');
+    
+      addBookBtn.addEventListener('click', () => {
+        this.addBook();
+      });
+    
+      this.getLocalStorage();
+      this.displayBooks(this.library);
     });
-  
-    this.getLocalStorage();
-    displayBook(this.library);
-  });
-
+  }
 }
 
 const awesomeBook = new AwesomeBook();
 
-awesomeBook();
+awesomeBook.main();
 
 
