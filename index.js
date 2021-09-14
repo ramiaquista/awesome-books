@@ -14,7 +14,7 @@ class AwesomeBook {
     this.library = data;
   }
   
-  const displayBook = (this.library) => {
+  displayBook(library) {
     const booklist = document.querySelector('.book-list');
   
     if (booklist.hasChildNodes()) {
@@ -23,8 +23,8 @@ class AwesomeBook {
         booklist.removeChild(node);
       });
     }
-    if (this.library.length > 0) {
-      this.library.forEach((book) => {
+    if (library.length > 0) {
+      library.forEach((book) => {
         const li = document.createElement('li');
         const p1 = document.createElement('p');
         const p2 = document.createElement('p');
@@ -60,20 +60,20 @@ class AwesomeBook {
     displayBook(this.library);
   };
   
-  const removeBook = (title) => {
+  removeBook(title) {
     this.library = this.library.filter((book) => book.title !== title);
     localStorage.removeItem('library');
     this.setLocalStorage();
     this.getLocalStorage();
   };
   
-  const deleteThisBook = (button) => {
+  deleteThisBook(button) {
     const titleToDelete = button.target.parentNode.firstElementChild.innerHTML;
     removeBook(titleToDelete);
     displayBook(this.library);
   };
   
-  const addBook = () => {
+  addBook() {
     let errorP;
     const titleBook = document.getElementById('titleBook').value;
     const authorBook = document.getElementById('authorBook').value;
