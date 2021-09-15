@@ -6,17 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Awesome Books</title>
     <link href="style.css" rel="stylesheet" >
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   </head>
   <body>
     <main class="main">
       <h1 class="main-title">Awesome Books</h1>
-      <ul class="book-list"></ul>
-      <form>
-        <input name="author" id="titleBook" placeholder="Title"/>
-        <input name="author" id="authorBook" placeholder="Author"/>
-        <button type="button" class="addBook">Add</button>
+      <ul class="book-list list-group dflex"></ul>
+      <hr class="break-line">
+      <h2 class="addbook-title">Add a new book</h2>
+      <form class="form-flex">
+        <input name="author" id="titleBook" class="form-control" placeholder="Title"/>
+        <input name="author" id="authorBook" class="form-control" placeholder="Author"/>
+        <button type="button" class="addBook btn btn-primary">Add</button>
       </form>
     </main>
     <script src="index.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   </body>
 </html>

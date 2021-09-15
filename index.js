@@ -24,21 +24,37 @@ class AwesomeBook {
       });
     }
     if (library.length > 0) {
-      library.forEach((book) => {
+      library.forEach((book, index) => {
         const li = document.createElement('li');
+        const div1 = document.createElement('div');
+        const div2 = document.createElement('div');
         const p1 = document.createElement('p');
+        const span = document.createElement('span');
         const p2 = document.createElement('p');
         const removeBtn = document.createElement('button');
-        const hr = document.createElement('hr');
 
-        p1.innerHTML = book.title;
+        p1.innerHTML = `"${book.title}"`;
+        span.innerHTML = 'by';
         p2.innerHTML = book.author;
         removeBtn.innerHTML = 'Remove';
+
+        if (AwesomeBook.isOdd(index)) {
+          li.classList.add('list-group-item-dark');
+        }
+
+        li.classList.add('list-group-item');
+        li.classList.add('row-line');
+        div1.classList.add('div1');
         removeBtn.classList.add('remove-button');
-        li.appendChild(p1);
-        li.appendChild(p2);
-        li.appendChild(removeBtn);
-        li.appendChild(hr);
+        removeBtn.classList.add('btn');
+        removeBtn.classList.add('btn-danger');
+
+        div1.appendChild(p1);
+        div1.appendChild(span);
+        div1.appendChild(p2);
+        div2.appendChild(removeBtn);
+        li.appendChild(div1);
+        li.appendChild(div2);
         booklist.appendChild(li);
       });
     }
@@ -50,6 +66,10 @@ class AwesomeBook {
         button.addEventListener('click', this.deleteThisBook.bind(this));
       });
     }
+  }
+
+  static isOdd(i) {
+    return i % 2 === 0;
   }
 
   Book(title, author) {
@@ -68,7 +88,7 @@ class AwesomeBook {
   }
 
   deleteThisBook(button) {
-    const titleToDelete = button.target.parentNode.firstElementChild.innerHTML;
+    const titleToDelete = button.target.parentNode.parentNode.firstElementChild.firstElementChild.innerHTML.replace('"', '').replace('"', '');
     this.removeBook(titleToDelete);
     this.displayBooks(this.library);
   }
