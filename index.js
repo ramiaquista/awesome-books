@@ -31,6 +31,8 @@ class AwesomeBook {
         const removeBtn = document.createElement('button');
         const hr = document.createElement('hr');
 
+        li.classList.add('list-group-item');
+        li.classList.add('row-line');
         p1.innerHTML = book.title;
         p2.innerHTML = book.author;
         removeBtn.innerHTML = 'Remove';
