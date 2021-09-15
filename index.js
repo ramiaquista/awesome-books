@@ -29,16 +29,19 @@ class AwesomeBook {
         const div1 = document.createElement('div');
         const div2 = document.createElement('div');
         const p1 = document.createElement('p');
-        const span = document.createElement("span");
+        const span = document.createElement('span');
         const p2 = document.createElement('p');
         const removeBtn = document.createElement('button');
 
-        p1.innerHTML = `"${book.title}"`
+        p1.innerHTML = `"${book.title}"`;
         span.innerHTML = 'by';
         p2.innerHTML = book.author;
         removeBtn.innerHTML = 'Remove';
 
-        this.isOdd(index) ? li.classList.add('list-group-item-dark') : "";
+        if (AwesomeBook.isOdd(index)) {
+          li.classList.add('list-group-item-dark');
+        }
+
         li.classList.add('list-group-item');
         li.classList.add('row-line');
         div1.classList.add('div1');
@@ -65,7 +68,7 @@ class AwesomeBook {
     }
   }
 
-  isOdd(i) {
+  static isOdd(i) {
     return i % 2 === 0;
   }
 
@@ -85,7 +88,7 @@ class AwesomeBook {
   }
 
   deleteThisBook(button) {
-    const titleToDelete = button.target.parentNode.parentNode.firstElementChild.firstElementChild.innerHTML.replace('"', "").replace('"', "");
+    const titleToDelete = button.target.parentNode.parentNode.firstElementChild.firstElementChild.innerHTML.replace('"', '').replace('"', '');
     this.removeBook(titleToDelete);
     this.displayBooks(this.library);
   }
