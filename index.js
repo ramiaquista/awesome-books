@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
 
 class AwesomeBook {
   DateTime = luxon.DateTime;
@@ -7,8 +8,8 @@ class AwesomeBook {
 
   mainClass = document.querySelector('.main');
 
-  mainTitle = document.querySelector(".main-title");
-  
+  mainTitle = document.querySelector('.main-title');
+
   library = [];
 
   setLocalStorage() {
@@ -24,30 +25,30 @@ class AwesomeBook {
   }
 
   addNewBookPage() {
-    const form = document.createElement("form");
-    const input1 = document.createElement("input");
-    const input2 = document.createElement("input");
-    const button = document.createElement("button");
+    const form = document.createElement('form');
+    const input1 = document.createElement('input');
+    const input2 = document.createElement('input');
+    const button = document.createElement('button');
 
-    form.classList.add("form-flex");
-    input2.classList.add("form-control");
-    button.classList.add("addBook");
-    button.classList.add("btn");
-    button.classList.add("btn-primary");
-    input1.classList.add("form-control");
+    form.classList.add('form-flex');
+    input2.classList.add('form-control');
+    button.classList.add('addBook');
+    button.classList.add('btn');
+    button.classList.add('btn-primary');
+    input1.classList.add('form-control');
 
-    input1.name = "title";
-    input1.id = "titleBook";
-    input1.placeholder = "Title";
-    input2.name = "author";
-    input2.id = "authorBook";
-    input2.placeholder = "Author";
-    button.type = "button";
+    input1.name = 'title';
+    input1.id = 'titleBook';
+    input1.placeholder = 'Title';
+    input2.name = 'author';
+    input2.id = 'authorBook';
+    input2.placeholder = 'Author';
+    button.type = 'button';
 
-    this.mainTitle.innerHTML = "Add a new book";
-    button.innerHTML = "Add";
+    this.mainTitle.innerHTML = 'Add a new book';
+    button.innerHTML = 'Add';
 
-    if(button) {
+    if (button) {
       button.addEventListener('click', () => {
         this.addBook();
       });
@@ -61,16 +62,43 @@ class AwesomeBook {
   }
 
   contactPage() {
+    this.mainTitle.innerHTML = 'Contact Information';
 
+    const containerInfo = document.createElement('div');
+    const description = document.createElement('p');
+    const description2 = document.createElement('p');
+    const data = document.createElement('ul');
+    const li1 = document.createElement('li');
+    const li2 = document.createElement('li');
+    const li3 = document.createElement('li');
+
+    containerInfo.classList.add('contact-page');
+    description.style.fontSize = '25px';
+    description2.style.fontSize = '25px';
+    data.style.fontSize = '20px';
+
+    description.innerHTML = 'Do you have any questions or you just want to say "Hello"?';
+    description2.innerHTML = 'You can reach out to us!';
+    li1.innerHTML = 'Our e-mail: mail@mail.com';
+    li2.innerHTML = 'Our phone number 03210312900';
+    li3.innerHTML = 'Our address: Streetname 22, 3218 City, Country.';
+
+    data.appendChild(li1);
+    data.appendChild(li2);
+    data.appendChild(li3);
+
+    containerInfo.appendChild(description);
+    containerInfo.appendChild(data);
+
+    this.mainClass.appendChild(containerInfo);
   }
-
 
   displayTime() {
     const span = document.createElement('span');
     const mainTitle = document.querySelector('.main-title');
 
     let dateToDisplay = this.dt.toLocaleString(this.DateTime.DATETIME_FULL_WITH_SECONDS);
-    dateToDisplay = dateToDisplay.replace('AST', '');
+    dateToDisplay = dateToDisplay.replace('AST', '').replace('GMT-3', '');
     span.innerHTML = dateToDisplay;
 
     mainTitle.style.position = 'relative';
@@ -83,8 +111,8 @@ class AwesomeBook {
   }
 
   displayBooks(library) {
-    const bookList = document.querySelector(".book-list");
-    this.mainTitle.innerHTML = "All awesome books";
+    const bookList = document.querySelector('.book-list');
+    this.mainTitle.innerHTML = 'All awesome books';
 
     if (bookList.hasChildNodes()) {
       const nodesArray = document.querySelectorAll('list-group-item');
@@ -128,6 +156,12 @@ class AwesomeBook {
       });
     }
 
+    if (this.library.length <= 5) {
+      document.querySelector('.main').style.height = '77vh';
+    } else {
+      document.querySelector('.main').style.height = 'auto';
+    }
+
     const allDeleteButtons = document.querySelectorAll('.remove-button');
 
     if (allDeleteButtons.length > 0) {
@@ -152,7 +186,7 @@ class AwesomeBook {
     localStorage.removeItem('library');
     this.setLocalStorage();
     this.getLocalStorage();
-    document.querySelector(".book-list").innerHTML = "";
+    document.querySelector('.book-list').innerHTML = '';
     this.displayBooks(this.library);
   }
 
@@ -166,7 +200,6 @@ class AwesomeBook {
     const titleBook = document.getElementById('titleBook').value;
     const authorBook = document.getElementById('authorBook').value;
     const mainTitle = document.querySelector('.main-title');
-    const p = document.createElement('p');
 
     if (titleBook === '' || authorBook === '') {
       return;
@@ -200,23 +233,22 @@ class AwesomeBook {
 
   main() {
     document.addEventListener('DOMContentLoaded', () => {
-      const list = document.getElementById("list");
-      list.classList.add("active");
-      const addBook = document.getElementById("add-new");
-      const contact = document.getElementById("contact");
+      const list = document.getElementById('list');
+      list.classList.add('active');
+      const addBook = document.getElementById('add-new');
+      const contact = document.getElementById('contact');
 
       list.addEventListener('click', () => {
-        addBook.classList.remove("active");
-        contact.classList.remove("active");
-        list.classList.add("active");
+        addBook.classList.remove('active');
+        contact.classList.remove('active');
+        list.classList.add('active');
 
-        if(!document.querySelector(".list-group-item")) {
-          if(document.querySelector(".form-flex")) {
-
-            this.mainClass.removeChild(document.querySelector(".form-flex"));
+        if (!document.querySelector('.list-group-item')) {
+          if (document.querySelector('.form-flex')) {
+            this.mainClass.removeChild(document.querySelector('.form-flex'));
           }
-          if(document.querySelector(".contact-page")) {
-            this.mainClass.removeChild(document.querySelector(".contact-page"));
+          if (document.querySelector('.contact-page')) {
+            this.mainClass.removeChild(document.querySelector('.contact-page'));
           }
 
           this.displayBooks(this.library);
@@ -224,41 +256,40 @@ class AwesomeBook {
       });
 
       addBook.addEventListener('click', () => {
-        list.classList.remove("active");
-        contact.classList.remove("active");
-        addBook.classList.add("active");
+        list.classList.remove('active');
+        contact.classList.remove('active');
+        addBook.classList.add('active');
 
-        if(!document.querySelector(".form-flex")) {
-          if(document.querySelector(".book-list")) {
-
-            document.querySelector(".book-list").innerHTML = "";
+        if (!document.querySelector('.form-flex')) {
+          if (document.querySelector('.book-list')) {
+            document.querySelector('.book-list').innerHTML = '';
           }
 
-          if(document.querySelector(".contact-page")) {
-            this.mainClass.removeChild(document.querySelector(".contact-page"));
+          if (document.querySelector('.contact-page')) {
+            this.mainClass.removeChild(document.querySelector('.contact-page'));
           }
 
           this.addNewBookPage();
         }
-      })
+      });
 
       contact.addEventListener('click', () => {
-        list.classList.remove("active");
-        addBook.classList.remove("active");
-        contact.classList.add("active");
-        
-        if(!document.querySelector(".contact-page")) {
-          if(document.querySelector(".form-flex")) {
-            this.mainClass.removeChild(document.querySelector(".form-flex"));
+        list.classList.remove('active');
+        addBook.classList.remove('active');
+        contact.classList.add('active');
+
+        if (!document.querySelector('.contact-page')) {
+          if (document.querySelector('.form-flex')) {
+            this.mainClass.removeChild(document.querySelector('.form-flex'));
           }
 
-          if(document.querySelector(".book-list")) {
-            document.querySelector(".book-list").innerHTML = "";
+          if (document.querySelector('.book-list')) {
+            document.querySelector('.book-list').innerHTML = '';
           }
 
           this.contactPage();
         }
-      })
+      });
     });
     this.getLocalStorage();
 
