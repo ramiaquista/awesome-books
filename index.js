@@ -24,23 +24,11 @@ class AwesomeBook {
     this.library = data;
   }
 
-  listBooksPage() {
-    const ul = document.createElement("ul");
-
-    ul.classList.add("book-list");
-    ul.classList.add("list-group");
-    ul.classList.add("dflex");
-
-    this.displayBooks(this.library, ul);
-      //     <ul class="book-list list-group dflex"></ul>
-  }
-
   addNewBookPage() {
     const form = document.createElement("form");
     const input1 = document.createElement("input");
     const input2 = document.createElement("input");
     const button = document.createElement("button");
-    const addBookBtn = document.querySelector('.addBook');
 
     form.classList.add("form-flex");
     input2.classList.add("form-control");
@@ -60,8 +48,8 @@ class AwesomeBook {
     this.mainTitle.innerHTML = "Add a new book";
     button.innerHTML = "Add";
 
-    if(addBookBtn) {
-      addBookBtn.addEventListener('click', () => {
+    if(button) {
+      button.addEventListener('click', () => {
         this.addBook();
       });
     }
@@ -95,12 +83,15 @@ class AwesomeBook {
     mainTitle.insertAdjacentElement('afterend', span);
   }
 
-  displayBooks(library, booklist) {
+  displayBooks(library) {
 
-    if (booklist.hasChildNodes()) {
+    const bookList = document.querySelector('.book-list');
+
+    if (bookList.hasChildNodes()) {
       const nodesArray = document.querySelectorAll('li');
       nodesArray.forEach((node) => {
-        booklist.removeChild(node);
+        console.log(node);
+        bookList.removeChild(node);
       });
     }
     if (library.length > 0) {
@@ -135,7 +126,7 @@ class AwesomeBook {
         div2.appendChild(removeBtn);
         li.appendChild(div1);
         li.appendChild(div2);
-        booklist.appendChild(li);
+        bookList.appendChild(li);
       });
     }
 
@@ -211,6 +202,7 @@ class AwesomeBook {
   main() {
     document.addEventListener('DOMContentLoaded', () => {
       const list = document.getElementById("list");
+      list.classList.add("active");
       const addBook = document.getElementById("add-new");
       const contact = document.getElementById("contact");
 
@@ -219,8 +211,8 @@ class AwesomeBook {
         contact.classList.remove("active");
         list.classList.add("active");
 
-        if(addBook.classList.contains("active")) {
-          this.listBooksPage();
+        if(!document.querySelector(".list-group-item")) {
+          this.displayBooks(this.library);
         }
       });
 
@@ -243,13 +235,12 @@ class AwesomeBook {
           this.contactPage();
         }
       })
-
-      this.getLocalStorage();
     });
+    this.getLocalStorage();
 
     this.displayTime();
 
-    this.listBooksPage();
+    this.displayBooks(this.library);
   }
 }
 
