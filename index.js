@@ -1,5 +1,4 @@
 /* eslint-disable no-use-before-define */
-// import {DateTime } from "luxon";
 
 class AwesomeBook {
   DateTime = luxon.DateTime;
@@ -84,13 +83,12 @@ class AwesomeBook {
   }
 
   displayBooks(library) {
-
-    const bookList = document.querySelector('.book-list');
+    const bookList = document.querySelector(".book-list");
+    this.mainTitle.innerHTML = "All awesome books";
 
     if (bookList.hasChildNodes()) {
-      const nodesArray = document.querySelectorAll('li');
+      const nodesArray = document.querySelectorAll('list-group-item');
       nodesArray.forEach((node) => {
-        console.log(node);
         bookList.removeChild(node);
       });
     }
@@ -147,8 +145,6 @@ class AwesomeBook {
     this.library.push({ title, author });
 
     this.setLocalStorage();
-
-    this.displayBooks(this.library);
   }
 
   removeBook(title) {
@@ -156,12 +152,13 @@ class AwesomeBook {
     localStorage.removeItem('library');
     this.setLocalStorage();
     this.getLocalStorage();
+    document.querySelector(".book-list").innerHTML = "";
+    this.displayBooks(this.library);
   }
 
   deleteThisBook(button) {
     const titleToDelete = button.target.parentNode.parentNode.firstElementChild.firstElementChild.innerHTML.replace('"', '').replace('"', '');
     this.removeBook(titleToDelete);
-    this.displayBooks(this.library);
   }
 
   addBook() {
@@ -169,6 +166,7 @@ class AwesomeBook {
     const titleBook = document.getElementById('titleBook').value;
     const authorBook = document.getElementById('authorBook').value;
     const mainTitle = document.querySelector('.main-title');
+    const p = document.createElement('p');
 
     if (titleBook === '' || authorBook === '') {
       return;
@@ -190,6 +188,7 @@ class AwesomeBook {
       });
     }
     this.Book(titleBook, authorBook);
+
     document.getElementById('titleBook').value = '';
     document.getElementById('authorBook').value = '';
 
@@ -212,6 +211,14 @@ class AwesomeBook {
         list.classList.add("active");
 
         if(!document.querySelector(".list-group-item")) {
+          if(document.querySelector(".form-flex")) {
+
+            this.mainClass.removeChild(document.querySelector(".form-flex"));
+          }
+          if(document.querySelector(".contact-page")) {
+            this.mainClass.removeChild(document.querySelector(".contact-page"));
+          }
+
           this.displayBooks(this.library);
         }
       });
@@ -222,6 +229,15 @@ class AwesomeBook {
         addBook.classList.add("active");
 
         if(!document.querySelector(".form-flex")) {
+          if(document.querySelector(".book-list")) {
+
+            document.querySelector(".book-list").innerHTML = "";
+          }
+
+          if(document.querySelector(".contact-page")) {
+            this.mainClass.removeChild(document.querySelector(".contact-page"));
+          }
+
           this.addNewBookPage();
         }
       })
@@ -231,7 +247,15 @@ class AwesomeBook {
         addBook.classList.remove("active");
         contact.classList.add("active");
         
-        if(addBook.classList.contains("active")) {
+        if(!document.querySelector(".contact-page")) {
+          if(document.querySelector(".form-flex")) {
+            this.mainClass.removeChild(document.querySelector(".form-flex"));
+          }
+
+          if(document.querySelector(".book-list")) {
+            document.querySelector(".book-list").innerHTML = "";
+          }
+
           this.contactPage();
         }
       })
