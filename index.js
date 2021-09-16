@@ -6,6 +6,10 @@ class AwesomeBook {
 
   dt = this.DateTime.now();
 
+  mainClass = document.querySelector('.main');
+
+  mainTitle = document.querySelector(".main-title");
+  
   library = [];
 
   setLocalStorage() {
@@ -19,6 +23,60 @@ class AwesomeBook {
 
     this.library = data;
   }
+
+  listBooksPage() {
+    const ul = document.createElement("ul");
+
+    ul.classList.add("book-list");
+    ul.classList.add("list-group");
+    ul.classList.add("dflex");
+
+    this.displayBooks(this.library, ul);
+      //     <ul class="book-list list-group dflex"></ul>
+  }
+
+  addNewBookPage() {
+    const form = document.createElement("form");
+    const input1 = document.createElement("input");
+    const input2 = document.createElement("input");
+    const button = document.createElement("button");
+    const addBookBtn = document.querySelector('.addBook');
+
+    form.classList.add("form-flex");
+    input2.classList.add("form-control");
+    button.classList.add("addBook");
+    button.classList.add("btn");
+    button.classList.add("btn-primary");
+    input1.classList.add("form-control");
+
+    input1.name = "title";
+    input1.id = "titleBook";
+    input1.placeholder = "Title";
+    input2.name = "author";
+    input2.id = "authorBook";
+    input2.placeholder = "Author";
+    button.type = "button";
+
+    this.mainTitle.innerHTML = "Add a new book";
+    button.innerHTML = "Add";
+
+    if(addBookBtn) {
+      addBookBtn.addEventListener('click', () => {
+        this.addBook();
+      });
+    }
+
+    form.appendChild(input1);
+    form.appendChild(input2);
+    form.appendChild(button);
+
+    this.mainClass.appendChild(form);
+  }
+
+  contactPage() {
+
+  }
+
 
   displayTime() {
     const span = document.createElement('span');
@@ -37,10 +95,7 @@ class AwesomeBook {
     mainTitle.insertAdjacentElement('afterend', span);
   }
 
-  displayBooks(library) {
-    const booklist = document.querySelector('.book-list');
-
-    this.displayTime();
+  displayBooks(library, booklist) {
 
     if (booklist.hasChildNodes()) {
       const nodesArray = document.querySelectorAll('li');
@@ -155,15 +210,46 @@ class AwesomeBook {
 
   main() {
     document.addEventListener('DOMContentLoaded', () => {
-      const addBookBtn = document.querySelector('.addBook');
+      const list = document.getElementById("list");
+      const addBook = document.getElementById("add-new");
+      const contact = document.getElementById("contact");
 
-      addBookBtn.addEventListener('click', () => {
-        this.addBook();
+      list.addEventListener('click', () => {
+        addBook.classList.remove("active");
+        contact.classList.remove("active");
+        list.classList.add("active");
+
+        if(addBook.classList.contains("active")) {
+          this.listBooksPage();
+        }
       });
 
+      addBook.addEventListener('click', () => {
+        list.classList.remove("active");
+        contact.classList.remove("active");
+        addBook.classList.add("active");
+
+        if(!document.querySelector(".form-flex")) {
+          this.addNewBookPage();
+        }
+      })
+
+      contact.addEventListener('click', () => {
+        list.classList.remove("active");
+        addBook.classList.remove("active");
+        contact.classList.add("active");
+        
+        if(addBook.classList.contains("active")) {
+          this.contactPage();
+        }
+      })
+
       this.getLocalStorage();
-      this.displayBooks(this.library);
     });
+
+    this.displayTime();
+
+    this.listBooksPage();
   }
 }
 
