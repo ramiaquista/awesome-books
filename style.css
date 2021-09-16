@@ -65,3 +65,9 @@
   bottom: -2rem;
   right: 0;
 }
+
+#navbarSupportedContent {
+  position: absolute;
+  right: 0;
+  padding-right: 2%;
+}

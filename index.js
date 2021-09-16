@@ -3,6 +3,7 @@
 
 class AwesomeBook {
   DateTime = luxon.DateTime;
+
   dt = this.DateTime.now();
 
   library = [];
@@ -24,21 +25,21 @@ class AwesomeBook {
     const mainTitle = document.querySelector('.main-title');
 
     let dateToDisplay = this.dt.toLocaleString(this.DateTime.DATETIME_FULL_WITH_SECONDS);
-    dateToDisplay = dateToDisplay.replace("AST", "")
-    span.innerHTML = dateToDisplay
+    dateToDisplay = dateToDisplay.replace('AST', '');
+    span.innerHTML = dateToDisplay;
 
-    mainTitle.style.position = "relative";
-    span.style.position = "absolute";
+    mainTitle.style.position = 'relative';
+    span.style.position = 'absolute';
     span.style.right = '1rem';
     span.style.top = '4rem';
-    mainTitle.style.marginTop = "3rem"; 
+    mainTitle.style.marginTop = '3rem';
 
-    mainTitle.insertAdjacentElement("afterend", span);
+    mainTitle.insertAdjacentElement('afterend', span);
   }
 
   displayBooks(library) {
     const booklist = document.querySelector('.book-list');
-    
+
     this.displayTime();
 
     if (booklist.hasChildNodes()) {
@@ -169,4 +170,3 @@ class AwesomeBook {
 const awesomeBook = new AwesomeBook();
 
 awesomeBook.main();
-
